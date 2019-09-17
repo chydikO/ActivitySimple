@@ -10,6 +10,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Ссылки из урока:
  *
@@ -28,41 +35,47 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnOk;
-    Button btnCancel;
-    EditText editTextLogin;
-    EditText getEditTextPass;
-    TextView resultText;
+    @BindView(R.id.btnOk) Button btnOk;
+    @BindView(R.id.btnCancel) Button btnCancel;
+    @BindView(R.id.textViewLogin) EditText editTextLogin;
+    @BindView(R.id.textViewPass) EditText getEditTextPass;
+    @BindView(R.id.textViewResult) TextView resultText;
+
+    @BindViews({ R.id.btnOk, R.id.btnCancel, R.id.textViewResult }) List<View> buttonList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnOk = findViewById(R.id.btnOk);
-        btnCancel = findViewById(R.id.btnCancel);
-        editTextLogin = findViewById(R.id.textViewLogin);
-        getEditTextPass = findViewById(R.id.textViewPass);
-        resultText = findViewById(R.id.textViewResult);
+        ButterKnife.bind(this);
+        ButterKnife.apply(buttonList, DISABLE);
 
-        btnOk.setOnClickListener(clickListener);
-        btnCancel.setOnClickListener(clickListener);
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            // do something when the button is clicked
-            if(v.getId() == R.id.btnOk) {
-                btnOkClick();
-            } else if(v.getId() == R.id.btnCancel) {
-                btnCancelClick();
-            }
+    static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
+        @Override public void apply(View view, int index) {
+            view.setEnabled(false);
+        }
+    };
+    static final ButterKnife.Setter<View, Boolean> ENABLED = new ButterKnife.Setter<View, Boolean>() {
+        @Override public void set(View view, Boolean value, int index) {
+            view.setEnabled(value);
         }
     };
 
+    @OnClick(R.id.btnOk) void onClickBtnOk() {
+        btnOkClick();
+    }
+
+    @OnClick(R.id.btnCancel) void onClickBtnCancel() {
+        btnCancelClick();
+
+    }
+
     private void btnOkClick() {
         resultText.setText(getEditTextPass.getText());
-        changeBgColor(Color.BLUE);
+        changeBgColor(Color.YELLOW);
     }
 
     private void btnCancelClick() {
