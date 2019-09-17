@@ -5,17 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.Action;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.ViewCollections;
+
 
 /**
  * Ссылки из урока:
@@ -43,17 +46,24 @@ public class MainActivity extends AppCompatActivity {
 
     @BindViews({ R.id.btnOk, R.id.btnCancel, R.id.textViewResult }) List<View> buttonList;
 
+    private static final Action<View> ALPHA_FADE = (view, index) -> {
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
+        alphaAnimation.setFillBefore(true);
+        alphaAnimation.setDuration(500);
+        alphaAnimation.setStartOffset(index * 100);
+        view.startAnimation(alphaAnimation);
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        ButterKnife.apply(buttonList, DISABLE);
-
+        ViewCollections.run(buttonList, ALPHA_FADE);
     }
 
-    static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
+    /*static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
         @Override public void apply(View view, int index) {
             view.setEnabled(false);
         }
@@ -62,18 +72,20 @@ public class MainActivity extends AppCompatActivity {
         @Override public void set(View view, Boolean value, int index) {
             view.setEnabled(value);
         }
-    };
+    };*/
 
     @OnClick(R.id.btnOk) void onClickBtnOk() {
         btnOkClick();
     }
 
     @OnClick(R.id.btnCancel) void onClickBtnCancel() {
-        btnCancelClick();
+        //btnCancelClick();
+        ViewCollections.run(buttonList, ALPHA_FADE);
 
     }
 
     private void btnOkClick() {
+
         resultText.setText(getEditTextPass.getText());
         changeBgColor(Color.YELLOW);
     }
