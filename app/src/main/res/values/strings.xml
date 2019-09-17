@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ActivitySimple</string>
+    <string name="textPass">Input password</string>
+    <string name="txtLogin">input login</string>
+    <string name="txtPassResult">you password</string>
 </resources>
