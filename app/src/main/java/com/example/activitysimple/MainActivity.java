@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        ViewCollections.run(buttonList, ALPHA_FADE);
     }
 
     /*static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
@@ -74,13 +73,16 @@ public class MainActivity extends AppCompatActivity {
         }
     };*/
 
-    @OnClick(R.id.btnOk) void onClickBtnOk() {
-        btnOkClick();
-    }
-
-    @OnClick(R.id.btnCancel) void onClickBtnCancel() {
-        //btnCancelClick();
-        ViewCollections.run(buttonList, ALPHA_FADE);
+    @OnClick({ R.id.btnOk, R.id.btnCancel }) public void btnClicks(View view) {
+        switch (view.getId()) {
+            case R.id.btnOk:
+                btnOkClick();
+                ViewCollections.run(buttonList, ALPHA_FADE);
+                break;
+            case R.id.btnCancel:
+                btnCancelClick();
+                break;
+        }
 
     }
 
