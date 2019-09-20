@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        ViewCollections.run(buttonList, ALPHA_FADE);
     }
 
     /*static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
@@ -74,18 +73,19 @@ public class MainActivity extends AppCompatActivity {
         }
     };*/
 
-    @OnClick(R.id.btnOk) void onClickBtnOk() {
-        btnOkClick();
-    }
-
-    @OnClick(R.id.btnCancel) void onClickBtnCancel() {
-        //btnCancelClick();
-        ViewCollections.run(buttonList, ALPHA_FADE);
-
+    @OnClick({ R.id.btnOk, R.id.btnCancel }) void onClickBtn(Button button) {
+        switch (button.getId()) {
+            case R.id.btnOk:
+                btnOkClick();
+            break;
+            case R.id.btnCancel:
+                btnCancelClick();
+                ViewCollections.run(buttonList, ALPHA_FADE);
+                break;
+        }
     }
 
     private void btnOkClick() {
-
         resultText.setText(getEditTextPass.getText());
         changeBgColor(Color.YELLOW);
     }
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         getEditTextPass.setText("");
         resultText.setText("");
         changeBgColor(Color.WHITE);
+        editTextLogin.requestFocus();
     }
 
     private void changeBgColor(Integer color) {
