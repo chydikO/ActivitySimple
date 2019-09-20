@@ -3,4 +3,5 @@
     <string name="textPass">Input password</string>
     <string name="txtLogin">input login</string>
     <string name="txtPassResult">you password</string>
+    <string name="formated_login_string">Hello %1$s !</string>
 </resources>
