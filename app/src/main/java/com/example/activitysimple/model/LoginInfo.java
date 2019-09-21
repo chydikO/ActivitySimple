@@ -16,15 +16,7 @@ public class LoginInfo implements Serializable {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getPassword() {
         return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
     }
 }

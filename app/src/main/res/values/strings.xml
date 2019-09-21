@@ -3,5 +3,14 @@
     <string name="textPass">Input password</string>
     <string name="txtLogin">input login</string>
     <string name="txtPassResult">you password</string>
-    <string name="formated_login_string">Hello %1$s !</string>
+    <string name="format_login_string">Hello %1$s !</string>
+    <string name="format_pass_string">you password is %1$s</string>
+    <string-array name="phone_list">
+        <item>IPhone SE</item>
+        <item>IPad</item>
+        <item>MacBook 15</item>
+        <item>MacBook Air</item>
+        <item>Nokia</item>
+        <item>Asus</item>
+    </string-array>
 </resources>

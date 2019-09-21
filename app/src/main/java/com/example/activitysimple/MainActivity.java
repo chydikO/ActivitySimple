@@ -7,19 +7,25 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.activitysimple.model.LoginInfo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.Action;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
 import butterknife.ViewCollections;
 
 
@@ -48,6 +54,8 @@ import butterknife.ViewCollections;
 public class MainActivity extends AppCompatActivity {
 
     public static final String LOGIN_INFO = "com.example.activityMain.login_info";
+    private ArrayList<String> devices;
+    @BindView(R.id.spinner) Spinner spinner;
     @BindView(R.id.btnLogin) Button btnLogin;
     @BindView(R.id.btnCancel) Button btnCancel;
     @BindView(R.id.textViewLogin) EditText editTextLogin;
@@ -71,6 +79,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        showSpinner();
+    }
+
+    private void showSpinner() {
+        initArrayDevices();
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, devices);
+        // Specify the layout to use when the list of choices appears
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(dataAdapter);
     }
 
     /*static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
@@ -84,11 +104,20 @@ public class MainActivity extends AppCompatActivity {
         }
     };*/
 
+    @OnItemSelected(R.id.spinner)
+    public void spinnerItemSelected(Spinner spinner, int position) {
+
+    }
+
     @OnClick({ R.id.btnLogin, R.id.btnCancel }) void onClickBtn(Button button) {
         switch (button.getId()) {
             case R.id.btnLogin:
-                btnOkClick();
-                showLoginActivity();
+                if (isLoginAndPassNotEmpty()) {
+                    btnOkClick();
+                    showLoginActivity();
+                } else {
+                    showMassage();
+                }
                 break;
             case R.id.btnCancel:
                 btnCancelClick();
@@ -121,5 +150,24 @@ public class MainActivity extends AppCompatActivity {
     private void changeBgColor(Integer color) {
         View mainView = findViewById(R.id.container);
         mainView.setBackgroundColor(color);
+    }
+
+    private boolean isLoginAndPassNotEmpty() {
+        return (editTextLogin.getText().length() > 0 && editTextPass.getText().length() > 0)? true : false;
+    }
+
+    private void showMassage() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Input login and pass!", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    private void initArrayDevices() {
+        devices = new ArrayList<String>();
+        devices.add("IPhone SE");
+        devices.add("IPad");
+        devices.add("MacBook 15");
+        devices.add("MacBook Air");
+        devices.add("Nokia");
+        devices.add("Asus");
     }
 }

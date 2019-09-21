@@ -8,11 +8,13 @@ import android.widget.TextView;
 
 import com.example.activitysimple.model.LoginInfo;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ResultActivity extends AppCompatActivity {
 
-    private TextView txtResult;
+    @BindView(R.id.txtResultLogin) TextView txtResultLogin;
+    @BindView(R.id.txtResultPass) TextView txtResultPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +23,10 @@ public class ResultActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
+
         LoginInfo loginInfo = (LoginInfo)intent.getSerializableExtra(MainActivity.LOGIN_INFO);
-        txtResult = findViewById(R.id.txtResult);
-        txtResult.setText(String.format(txtResult.getText().toString(), loginInfo.getPassword()));
+
+        txtResultLogin.setText(String.format(txtResultLogin.getText().toString(), loginInfo.getLogin()));
+        txtResultPass.setText(String.format(txtResultPass.getText().toString(), loginInfo.getPassword()));
     }
 }
