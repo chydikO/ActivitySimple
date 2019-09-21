@@ -17,4 +17,11 @@
         android:layout_height="wrap_content"
         android:text="@string/format_pass_string"
         android:gravity="center" />
+
+    <TextView
+        android:id="@+id/txtResultDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/format_dev_string"
+        android:gravity="center" />
 </LinearLayout>

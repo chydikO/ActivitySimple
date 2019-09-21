@@ -15,6 +15,7 @@ public class ResultActivity extends AppCompatActivity {
 
     @BindView(R.id.txtResultLogin) TextView txtResultLogin;
     @BindView(R.id.txtResultPass) TextView txtResultPass;
+    @BindView(R.id.txtResultDevice) TextView txtResultDev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,5 +29,6 @@ public class ResultActivity extends AppCompatActivity {
 
         txtResultLogin.setText(String.format(txtResultLogin.getText().toString(), loginInfo.getLogin()));
         txtResultPass.setText(String.format(txtResultPass.getText().toString(), loginInfo.getPassword()));
+        txtResultDev.setText(String.format(txtResultDev.getText().toString(), loginInfo.getDevice()));
     }
 }

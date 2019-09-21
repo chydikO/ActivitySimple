@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        loginInfo = new LoginInfo();
         showSpinner();
     }
 
@@ -106,7 +107,9 @@ public class MainActivity extends AppCompatActivity {
 
     @OnItemSelected(R.id.spinner)
     public void spinnerItemSelected(Spinner spinner, int position) {
-
+        if(spinner.getSelectedItem() != null) {
+            loginInfo.setDevice((String) spinner.getSelectedItem());
+        }
     }
 
     @OnClick({ R.id.btnLogin, R.id.btnCancel }) void onClickBtn(Button button) {
@@ -127,7 +130,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showLoginActivity() {
-        loginInfo = new LoginInfo(editTextLogin.getText().toString(), editTextPass.getText().toString());
+        loginInfo.setLogin(editTextLogin.getText().toString());
+        loginInfo.setPassword(editTextPass.getText().toString());
 
         Intent resultIntent = new Intent(this, ResultActivity.class);
         resultIntent.putExtra(LOGIN_INFO, loginInfo);
@@ -163,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initArrayDevices() {
         devices = new ArrayList<String>();
+        devices.add("--same--");
         devices.add("IPhone SE");
         devices.add("IPad");
         devices.add("MacBook 15");

@@ -5,6 +5,7 @@
     <string name="txtPassResult">you password</string>
     <string name="format_login_string">Hello %1$s !</string>
     <string name="format_pass_string">you password is %1$s</string>
+    <string name="format_dev_string">you device: %1$s</string>
     <string-array name="phone_list">
         <item>IPhone SE</item>
         <item>IPad</item>
