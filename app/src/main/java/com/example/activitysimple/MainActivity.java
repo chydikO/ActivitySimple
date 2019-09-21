@@ -36,9 +36,8 @@ import butterknife.ViewCollections;
  *     ViewGroup – контейнер для других контейнеров или компонентов http://developer.android.com/reference/android/view/ViewGroup.html
  *     Документация с фильтрацией по API Level http://developer.android.com/reference/android/view/ViewGroup.html
  *
- *      Lesson_5
+ *      Lesson_4
  *      Домашнее задание:
- *
  *     Добавить кнопку «Очистить», которая будет очищать текстовые поля
  *     Под кнопками расположить изображение замка
  *     Изменить цвет фона главного окна
