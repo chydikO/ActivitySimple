@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -117,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 if (isLoginAndPassNotEmpty()) {
                     btnOkClick();
                     showLoginActivity();
-                } else {
-                    showMassage();
                 }
                 break;
             case R.id.btnCancel:
@@ -140,8 +139,12 @@ public class MainActivity extends AppCompatActivity {
     private void btnOkClick() {
         resultText.setText(editTextPass.getText());
         changeBgColor(Color.YELLOW);
+        if (loginInfo.getDevice().equals(devices.get(0))){
+            loginInfo.setDevice(Build.MODEL);
+        }
     }
 
+    //TODO need set spinner index 0
     private void btnCancelClick() {
         editTextLogin.setText("");
         editTextPass.setText("");
@@ -155,12 +158,26 @@ public class MainActivity extends AppCompatActivity {
         mainView.setBackgroundColor(color);
     }
 
+    //TODO need refactoring method
     private boolean isLoginAndPassNotEmpty() {
-        return (editTextLogin.getText().length() > 0 && editTextPass.getText().length() > 0)? true : false;
+        boolean result = false;
+        if (editTextLogin.getText().toString().trim().equals("")) {
+            showMassage(getResources().getString(R.string.login_required));
+            editTextLogin.setText("");
+            editTextLogin.requestFocus();
+            return result;
+        }
+        if (editTextPass.getText().toString().trim().equals("")) {
+            showMassage(getResources().getString(R.string.password_required));
+            editTextPass.setText("");
+            editTextPass.requestFocus();
+            return result;
+        }
+        return true;
     }
 
-    private void showMassage() {
-        Toast toast = Toast.makeText(getApplicationContext(), "Input login and pass!", Toast.LENGTH_SHORT);
+    private void showMassage(String text) {
+        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
         toast.show();
     }
 
